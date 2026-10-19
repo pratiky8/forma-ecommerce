@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Forma</title>
+  <rect width="64" height="64" rx="12" fill="#f8f5ef"/>
+  <path fill="#24211f" d="M17 15h29v10h-3l-3-6H27v12h10l2-5h3v14h-3l-2-5H27v11l6 2v2H17v-2l4-2V19l-4-2z"/>
+</svg>

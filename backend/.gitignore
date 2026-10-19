@@ -1,0 +1,10 @@
+.venv/
+node_modules/
+media/
+.env
+__pycache__/
+*.pyc
+*.sqlite3
+frontend-baseline.json
+.secret-key
+frontend-eslint-result.json

@@ -1,0 +1,13 @@
+{
+  "name": "Forma — Everyday, considered.",
+  "short_name": "Forma",
+  "description": "Considered objects for home, tech, carry and everyday accessories.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f8f5ef",
+  "theme_color": "#f8f5ef",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon.ico", "sizes": "16x16 32x32 48x48", "type": "image/x-icon" }
+  ]
+}
