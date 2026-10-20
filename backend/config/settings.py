@@ -56,7 +56,12 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.AnonRateThrottle", "rest_framework.throttling.UserRateThrottle"],
     "DEFAULT_THROTTLE_RATES": {"anon": "120/min", "user": "300/min", "auth": "10/min"},
 }
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8080,http://127.0.0.1:5173,http://127.0.0.1:8080").split(",")
+CORS_ALLOWED_ORIGINS = list(dict.fromkeys([
+    "http://localhost:5173", "http://localhost:8080",
+    "http://127.0.0.1:5173", "http://127.0.0.1:8080",
+    "https://forma-ecommerce.vercel.app",
+    *[origin.strip() for origin in os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",") if origin.strip()],
+]))
 CORS_ALLOW_HEADERS = [*default_headers, "idempotency-key"]
 USE_TZ = True
 TIME_ZONE = "Asia/Kolkata"

@@ -5,10 +5,14 @@
  * (the app runs in Vite development OR VITE_ENABLE_DEMO=true is set explicitly).
  * Anything else → live API mode (the default).
  */
+import { resolveApiBaseUrl } from "./api-url";
+
 const env = import.meta.env;
 
-export const API_BASE_URL: string =
-  (env["VITE_API_BASE_URL"] as string | undefined) ?? "http://localhost:8000";
+export const API_BASE_URL = resolveApiBaseUrl(
+  env["VITE_API_BASE_URL"] as string | undefined,
+  env.PROD,
+);
 
 const wantsFixtures = env["VITE_USE_DEV_FIXTURES"] === "true";
 const demoAllowed = env.DEV === true || env["VITE_ENABLE_DEMO"] === "true";

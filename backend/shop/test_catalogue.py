@@ -86,3 +86,20 @@ class CatalogueTests(APITestCase):
         self.assertIn("idempotency-key", response["Access-Control-Allow-Headers"])
         denied = self.client.get("/api/products/", HTTP_ORIGIN="https://unknown.example")
         self.assertNotIn("Access-Control-Allow-Origin", denied)
+
+    def test_production_frontend_cors(self):
+        origin = "https://forma-ecommerce.vercel.app"
+        for path in ["/api/products/", "/api/categories/", "/api/auth/me/"]:
+            response = self.client.get(path, HTTP_ORIGIN=origin)
+            self.assertEqual(response["Access-Control-Allow-Origin"], origin)
+        preflight = self.client.options(
+            "/api/orders/", HTTP_ORIGIN=origin,
+            HTTP_ACCESS_CONTROL_REQUEST_METHOD="POST",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="authorization,content-type,idempotency-key",
+        )
+        self.assertEqual(preflight.status_code, 200)
+        self.assertEqual(preflight["Access-Control-Allow-Origin"], origin)
+        self.assertIn("authorization", preflight["Access-Control-Allow-Headers"])
+        self.assertIn("idempotency-key", preflight["Access-Control-Allow-Headers"])
+        denied = self.client.get("/api/products/", HTTP_ORIGIN="https://forma-ecommerce.vercel.app.attacker.example")
+        self.assertNotIn("Access-Control-Allow-Origin", denied)

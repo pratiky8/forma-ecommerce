@@ -35,7 +35,7 @@ npm test                      # unit tests (vitest)
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `VITE_API_BASE_URL` | `http://localhost:8000` | Django origin. All requests go through the single Axios client. |
+| `VITE_API_BASE_URL` | `http://localhost:8000` in development | Django origin. Production requires an explicit non-loopback HTTPS origin. All requests go through the single Axios client. |
 | `VITE_USE_DEV_FIXTURES` | `false` | Request fixture mode. |
 | `VITE_ENABLE_DEMO` | `false` | Allow fixture mode outside `vite dev` (e.g. a hosted demo/preview build). |
 | `VITE_AUTH_STRATEGY` | `token` | `token` = DRF `Authorization: Token …`; `session` = HttpOnly Django session cookie + CSRF. |
@@ -43,7 +43,7 @@ npm test                      # unit tests (vitest)
 **Fixture mode is on only when** `VITE_USE_DEV_FIXTURES=true` **and** (the app runs under `vite dev` **or** `VITE_ENABLE_DEMO=true`). In every other case the app runs in **live API mode**, which is the default.
 
 - **Hosted demo:** the committed `.env` sets both flags to `true`, so the preview shows sample products. A "DEMO" strip appears on every page.
-- **Going live:** set `VITE_USE_DEV_FIXTURES=false` (or remove it) and point `VITE_API_BASE_URL` at Django. In live mode the fixture adapter is never called. A failed API request shows an error with a retry button and **never falls back to fixtures**.
+- **Going live:** set `VITE_USE_DEV_FIXTURES=false` (or remove it) and point `VITE_API_BASE_URL` at the hosted Django HTTPS origin. Production builds reject localhost. See [production API deployment steps](docs/PRODUCTION_API.md). In live mode the fixture adapter is never called. A failed API request shows an error with a retry button and **never falls back to fixtures**.
 
 ### What demo mode does and doesn't do
 
